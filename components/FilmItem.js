@@ -1,19 +1,26 @@
 import React, { Component } from "react";
 import { Text, StyleSheet, View, Image } from "react-native";
+import { getImageFromApi } from "../API/tmdbAPI";
 
 export default class FilmItem extends Component {
   render() {
     const { film } = this.props;
     return (
       <View style={styles.container}>
-        <Image style={styles.image} source={{ uri: "image" }} />
+        <Image
+          style={styles.image}
+          source={{ uri: getImageFromApi(film.poster_path) }}
+        />
+
         <View style={styles.content}>
           <View style={styles.header}>
             <Text style={styles.title}>{film.title}</Text>
             <Text style={styles.vote}>{film.vote_average}</Text>
           </View>
           <View style={styles.description}>
-            <Text style={styles.description_text}>{film.overview}</Text>
+            <Text numberOfLines={5} style={styles.description_text}>
+              {film.overview}
+            </Text>
           </View>
           <View style={styles.date}>
             <Text style={styles.date_text}>Sorti le {film.release_date}</Text>
@@ -34,11 +41,11 @@ const styles = StyleSheet.create({
     borderColor: "#30336b",
     margin: 7,
     marginBottom: 9,
-    height: "auto",
+    height: 200,
     flexDirection: "row"
   },
   image: {
-    width: 120,
+    width: 130,
     height: 180,
     margin: 5,
     backgroundColor: "grey",

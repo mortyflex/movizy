@@ -1,12 +1,16 @@
 import API_KEY from "../Helpers/apiKey";
 
-const getFilmsFromApi = async text => {
-  const url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=fr&query=${text}&page=1&include_adult=false`;
+const getFilmsFromApi = async (text, page) => {
+  const url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=fr&query=${text}&page=${page}&include_adult=false`;
 
   let response = await fetch(url);
   let data = await response.json();
   console.log(data);
-  return data.results;
+  return data;
 };
 
-export { getFilmsFromApi };
+const getImageFromApi = name => {
+  return `https://image.tmdb.org/t/p/w300${name}`;
+};
+
+export { getFilmsFromApi, getImageFromApi };
